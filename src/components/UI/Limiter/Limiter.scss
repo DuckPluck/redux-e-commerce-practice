@@ -1,0 +1,6 @@
+.limiter {
+  @media screen and (min-width: 1920px + .1px) {
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+}

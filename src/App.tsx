@@ -1,13 +1,22 @@
-import { Button } from 'flowbite-react';
 import React from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { HomePage } from './pages/HomePage';
+import { NoMatchPage } from './pages/NoMatchPage';
 
 import './App.scss';
 
+
+const router = createBrowserRouter([
+  {
+    element: (<HomePage />),
+    errorElement: <NoMatchPage />,
+    path: '/',
+  },
+]);
+
 function App() {
   return (
-    <>
-      <Button>flowbite</Button>
-    </>
+    <RouterProvider router={router} />
   );
 }
 

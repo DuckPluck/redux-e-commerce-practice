@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   category: '',
-  limit: 10,
+  limit: 12,
   search: '',
 };
 
@@ -18,7 +18,7 @@ export const productsSlice = createSlice({
       state.search = action.payload;
     },
     loadMoreProducts: (state) => {
-      state.limit = state.limit + 10;
+      state.limit = state.limit + 12;
     },
   },
 });

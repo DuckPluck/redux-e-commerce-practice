@@ -16,17 +16,15 @@ interface Props {
 export const Catalog = ({ className }: Props) => {
   const blockClassName = classNames('2xl:px-[240px] xl:px-[180px] lg:px-[120px] px-[60px] pt-[60px]', className);
 
-  const limit = useAppSelector((state) => state.productsSlice.limit);
-  const searchName = useAppSelector((state) => state.productsSlice.search);
-  const categoryGoods = useAppSelector((state) => state.productsSlice.category);
+  const { limit, search, category } = useAppSelector((state) => state.productsSlice);
 
   const body = {
-    category: categoryGoods,
+    category: category,
     limit: limit,
-    search: searchName,
+    search: search,
   };
 
-  const { data: products = [], isLoading }: {data: ProductItem[], isLoading: boolean} = useGetProductsQuery(body);
+  const { data: products = [], isLoading } = useGetProductsQuery(body);
 
   if (isLoading) {
     return 'loading';
@@ -37,7 +35,7 @@ export const Catalog = ({ className }: Props) => {
       <CatalogFilters />
 
       <div className="flex flex-wrap justify-between mt-[-30px] mx-auto w-fit">
-        {products?.map((product) => (
+        {products?.map((product: ProductItem) => (
           <CatalogCard productInfo={product} key={product.id} />
         ))}
       </div>

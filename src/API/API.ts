@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 
 const baseUrl = import.meta.env.VITE_APP_API_URL;
@@ -20,7 +20,7 @@ export const API = createApi({
       providesTags: (result) => providesList(result, 'Products'),
       query: (body) => body.search ?
         `/products?title=${body.search}` :
-        `/products?category=${body.category}&start=0&end=${body.limit}`,
+        `/products?category=${body.category}&_start=0&_end=${body.limit}`,
     }),
   }),
   reducerPath: 'api',
@@ -28,6 +28,5 @@ export const API = createApi({
 });
 
 export const {
-  // FixMe: handle useGetProductsQuery export
   useGetProductsQuery,
 } = API;

@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const CatalogCard = ({ className, productInfo }: Props) => {
-  const blockClassName = classNames('mt-[30px]', 'catalog-card', className);
+  const blockClassName = classNames('mt-[30px] ml-[12px]', 'catalog-card', className);
 
   const handleAddToCart = (productId: number) => {
     // ToDo: add addToCart logic

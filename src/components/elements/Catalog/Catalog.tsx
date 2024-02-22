@@ -1,8 +1,10 @@
 import classNames from 'classnames';
-import { Button } from 'flowbite-react';
+import { Button, Spinner } from 'flowbite-react';
 import React from 'react';
 import { useGetProductsQuery } from '../../../API/API';
-import { useAppSelector } from '../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { productsSlice } from '../../../store/reducers/productsSlice';
+
 import { CatalogCard } from '../CatalogCard/CatalogCard';
 import { CatalogFilters } from '../CatalogFilters/CatalogFilters';
 
@@ -26,22 +28,30 @@ export const Catalog = ({ className }: Props) => {
 
   const { data: products = [], isLoading } = useGetProductsQuery(body);
 
+  const dispatch = useAppDispatch();
+  const { loadMoreProducts } = productsSlice.actions;
+
+  const handleMoreProducts = () => {
+    dispatch(loadMoreProducts());
+  };
+
   if (isLoading) {
-    return 'loading';
+    return <Spinner />;
   }
 
   return (
     <div className={blockClassName}>
       <CatalogFilters />
 
-      <div className="flex flex-wrap justify-between mt-[-30px] mx-auto w-fit">
+      <div className="flex flex-wrap justify-start mt-[-30px] ml-[-12px] w-full">
         {products?.map((product: ProductItem) => (
           <CatalogCard productInfo={product} key={product.id} />
         ))}
       </div>
 
       <div>
-        <Button color="light" pill className="mx-auto my-[32px]">Показать еще</Button>
+        <Button color="light" pill className="mx-auto my-[32px]" onClick={handleMoreProducts}>
+          Показать еще</Button>
       </div>
     </div>
   );

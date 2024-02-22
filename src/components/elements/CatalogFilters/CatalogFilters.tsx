@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { Label, Select, TextInput } from 'flowbite-react';
-import React from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { useAppDispatch } from '../../../hooks/redux';
+import { productsSlice } from '../../../store/reducers/productsSlice';
 
 import './CatalogFilters.scss';
 
@@ -11,10 +13,31 @@ interface Props {
 
 export const CatalogFilters = ({ className }: Props) => {
   const blockClassName = classNames('catalog-filters', 'mb-[64px]', className);
+
+  const [search, setSearch] = useState('');
+
+  const dispatch = useAppDispatch();
+  const { changeSearch, changeCategory } = productsSlice.actions;
+
+  const handleSearch = (Event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(Event.target.value);
+  };
+  const handleCategory = (Event: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(changeCategory(Event.target.value));
+  };
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(changeSearch(search));
+  };
+
   return (
     <div className={blockClassName}>
-      <form className="flex">
-        <TextInput type="search" placeholder="Поиск товара по названию" shadow className="w-full" />
+      <form className="flex" onSubmit={handleSubmit}>
+        <TextInput
+          onChange={handleSearch}
+          type="search"
+          placeholder="Поиск товара по названию"
+          shadow className="w-full" />
 
         <button type="submit">Search</button>
       </form>
@@ -23,11 +46,11 @@ export const CatalogFilters = ({ className }: Props) => {
         <Label className="w-full max-w-sm">
           Категория
 
-          <Select className="mt-[8px]">
-            <option>All</option>
-            <option>Shoes</option>
-            <option>Furniture</option>
-            <option>Electronics</option>
+          <Select className="mt-[8px]" onChange={handleCategory}>
+            <option value="">All</option>
+            <option value="shoes">Shoes</option>
+            <option value="furniture">Furniture</option>
+            <option value="electronics">Electronics</option>
           </Select>
         </Label>
 

@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit/react';
 import productsSlice from './reducers/productsSlice';
 import { API } from '../API/API';
 

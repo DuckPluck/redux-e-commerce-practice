@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit/react';
 
 
 const initialState = {
@@ -22,7 +22,5 @@ export const productsSlice = createSlice({
     },
   },
 });
-
-export const { loadMoreProducts, changeSearch, changeCategory } = productsSlice.actions;
 
 export default productsSlice.reducer;
